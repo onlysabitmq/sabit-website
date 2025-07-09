@@ -1,131 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sabit Musaddique | Medical Student</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f6f9;
-      color: #333;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sabit Musaddique | Medical Student</title>
 
-    header {
-      background: #0066cc;
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-    }
+<style>
+/* ---------- CSS VARIABLES ---------- */
+:root{
+  --clr-accent:#0066cc;
+  --clr-bg-light:#f4f6f9;
+  --clr-bg-dark:#121921;
+  --clr-text-light:#333;
+  --clr-text-dark:#e5e7eb;
+  --card-radius:12px;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
+/* ---------- RESET & BASE ---------- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Segoe UI',sans-serif;
+  background:var(--clr-bg-light);
+  color:var(--clr-text-light);
+  min-height:100vh;
+  line-height:1.6;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+}
 
-    header p {
-      font-size: 1.2rem;
-    }
+/* ---------- ANIMATED BACKGROUND ---------- */
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background:linear-gradient(120deg,#8e9eab 0%,#eef2f3 50%,#8e9eab 100%);
+  background-size:200% 200%;
+  animation:gradientShift 20s ease infinite;
+  z-index:-2;
+  opacity:0.25;
+}
+@keyframes gradientShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px;
-    }
+/* ---------- HEADER ---------- */
+header{
+  background:var(--clr-accent);
+  color:#fff;text-align:center;
+  padding:60px 20px 80px;
+  position:relative;
+  overflow:hidden;
+}
+header h1{font-size:3rem;letter-spacing:1px}
+header p{font-size:1.25rem;margin-top:6px}
 
-    .section {
-      margin: 30px 0;
-    }
+/* subtle header wave */
+header::after{
+  content:"";
+  position:absolute;bottom:-1px;left:0;right:0;height:70px;
+  background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100"><path fill="%23ffffff" d="M0,0  C300,100  600,100 900,50  C1140,15  1350,15 1440,30  L1440,100  L0,100Z"/></svg>') no-repeat center/cover;
+}
 
-    .section h2 {
-      color: #0066cc;
-      margin-bottom: 10px;
-    }
+/* ---------- CONTAINER ---------- */
+.container{max-width:1000px;margin:auto;padding:40px 24px}
 
-    .card {
-      background: white;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      margin-bottom: 15px;
-    }
+/* ---------- SECTION TITLES ---------- */
+.section{margin:60px 0}
+.section h2{
+  font-size:1.75rem;color:var(--clr-accent);margin-bottom:18px;
+  position:relative;display:inline-block;
+}
+.section h2::after{
+  content:"";position:absolute;left:0;bottom:-4px;
+  width:60%;height:3px;background:var(--clr-accent);
+  border-radius:2px;
+}
 
-    .contact {
-      text-align: center;
-      padding: 30px 0;
-      background: #eef3f8;
-    }
+/* ---------- CARDS ---------- */
+.card{
+  background:#fff;
+  border-radius:var(--card-radius);
+  padding:24px;
+  box-shadow:0 6px 14px rgba(0,0,0,.06);
+  margin-bottom:18px;
+  transition:transform .35s cubic-bezier(.25,.8,.25,1),box-shadow .35s;
+  opacity:0;transform:translateY(40px);
+}
+.card:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 12px 22px rgba(0,0,0,.12);
+}
 
-    .contact p {
-      font-size: 1.1rem;
-      margin: 5px;
-    }
+/* ---------- CONTACT BANNER ---------- */
+.contact{
+  text-align:center;padding:50px 20px;
+  background:rgba(255,255,255,.6);
+  backdrop-filter:blur(6px);
+  border-top:1px solid rgba(0,0,0,.05);
+}
 
-    footer {
-      text-align: center;
-      padding: 10px;
-      background: #0066cc;
-      color: white;
-    }
+/* ---------- FOOTER ---------- */
+footer{
+  text-align:center;padding:14px;
+  background:var(--clr-accent);color:#fff;font-size:.9rem;
+}
 
-    a {
-      color: #0066cc;
-      text-decoration: none;
-    }
+/* ---------- LINKS ---------- */
+a{color:var(--clr-accent);text-decoration:none}
+a:hover{text-decoration:underline}
 
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+/* ---------- DARK MODE ---------- */
+body.dark{
+  background:var(--clr-bg-dark);
+  color:var(--clr-text-dark);
+}
+body.dark header{background:#0a7af7}
+body.dark .card{background:#1e2a33;color:inherit}
+body.dark .contact{background:rgba(18,25,33,.75)}
+/* toggle button */
+#darkToggle{
+  position:fixed;right:18px;bottom:20px;z-index:999;
+  background:var(--clr-accent);border:none;color:#fff;
+  width:48px;height:48px;border-radius:50%;
+  font-size:1.25rem;cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,.2);
+}
+
+/* ---------- SCROLL FADE-IN ---------- */
+@media(prefers-reduced-motion:no-preference){
+  .reveal{opacity:1!important;transform:none!important;
+          transition:opacity .9s ease,transform .9s ease}
+}
+</style>
 </head>
+
 <body>
+<!-- DARK-MODE TOGGLE -->
+<button id="darkToggle" aria-label="Toggle dark mode">🌙</button>
 
-  <header>
-    <h1>Sabit Musaddique</h1>
-    <p>MBBS Student | Delta Medical College, Dhaka</p>
-  </header>
+<header>
+  <h1>Sabit Musaddique</h1>
+  <p>MBBS Student · Delta Medical College, Dhaka</p>
+</header>
 
-  <div class="container">
-    <div class="section">
-      <h2>🎓 Education</h2>
-      <div class="card">
-        <strong>MBBS (Current)</strong><br />
-        Delta Medical College, Dhaka
-      </div>
-      <div class="card">
-        <strong>HSC</strong><br />
-        Birshreshtha Munshi Abdur Rouf Public College
-      </div>
-      <div class="card">
-        <strong>SSC</strong><br />
-        Ideal School and College, Motijheel
-      </div>
+<div class="container">
+  <!-- Education -->
+  <section class="section">
+    <h2>🎓 Education</h2>
+    <div class="card"> <strong>MBBS (Current)</strong><br>Delta Medical College, Dhaka </div>
+    <div class="card"> <strong>HSC</strong><br>Birshreshtha Munshi Abdur Rouf Public College </div>
+    <div class="card"> <strong>SSC</strong><br>Ideal School & College, Motijheel </div>
+  </section>
+
+  <!-- Location -->
+  <section class="section">
+    <h2>📍 Location</h2>
+    <div class="card">Currently living in Dhaka, Bangladesh</div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section">
+    <h2>📞 Contact</h2>
+    <div class="card">
+      Phone: <a href="tel:+8801766862660">01766862660</a><br>
+      Email: <a href="mailto:sabitmq@gmail.com">sabitmq@gmail.com</a>
     </div>
+  </section>
+</div>
 
-    <div class="section">
-      <h2>📍 Location</h2>
-      <div class="card">
-        Currently living in Dhaka, Bangladesh
-      </div>
-    </div>
+<!-- Collaboration banner -->
+<div class="contact">
+  <p>Feel free to reach out for collaboration or academic discussions.</p>
+</div>
 
-    <div class="section">
-      <h2>📞 Contact</h2>
-      <div class="card">
-        Phone: <a href="tel:+8801766862660">01766862660</a><br />
-        Email: <a href="mailto:sabitmq@gmail.com">sabitmq@gmail.com</a>
-      </div>
-    </div>
-  </div>
+<footer>© 2025 Sabit Musaddique · All rights reserved</footer>
 
-  <div class="contact">
-    <p>Feel free to reach out for collaboration or academic discussions.</p>
-  </div>
+<!-- ---------- LITTLE JS (dark-mode + reveal) ---------- -->
+<script>
+/* dark-mode toggle */
+const btn=document.getElementById('darkToggle');
+btn.addEventListener('click',()=>{
+  document.body.classList.toggle('dark');
+  btn.textContent=document.body.classList.contains('dark')?'☀️':'🌙';
+});
 
-  <footer>
-    © 2025 Sabit Musaddique | All rights reserved
-  </footer>
-  
+/* fade-in on scroll */
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('reveal');}});
+},{threshold:.15});
+document.querySelectorAll('.card').forEach(c=>observer.observe(c));
+</script>
+
 </body>
 </html>
