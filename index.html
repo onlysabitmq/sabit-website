@@ -3,186 +3,240 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sabit Musaddique | Medical Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Sabit Musaddique | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --main-color: #0ea5e9;
-      --bg-light: #f8fafc;
-      --bg-dark: #0f172a;
-      --text-dark: #1e293b;
-      --text-light: #e2e8f0;
+      --bg: #0a0a0a;
+      --fg: #e0e0e0;
+      --accent: #00bcd4;
+      --hover: #1de9b6;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0; padding: 0;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--bg-light);
-      color: var(--text-dark);
-      transition: background 0.3s, color 0.3s;
+      background-color: var(--bg);
+      color: var(--fg);
+      overflow-x: hidden;
     }
 
-    .dark-mode {
-      background: var(--bg-dark);
-      color: var(--text-light);
-    }
-
-    header {
-      background: linear-gradient(to right, #0ea5e9, #2563eb);
+    /* Splash Loader */
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: #0a0a0a;
       color: white;
-      text-align: center;
-      padding: 100px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeOut 1s ease 3s forwards;
     }
 
-    header h1 {
-      font-size: 3rem;
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    #loader h1 {
+      font-size: 2.5rem;
       margin-bottom: 10px;
+      animation: float 2s infinite ease-in-out;
     }
 
-    header p {
-      font-size: 1.25rem;
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 40px 20px;
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.7);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 999;
+    }
+
+    nav h1 {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    nav ul li a {
+      color: var(--fg);
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: var(--accent);
     }
 
     section {
-      margin-bottom: 60px;
+      min-height: 100vh;
+      padding: 120px 40px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: var(--main-color);
+    #home { background: #0f0f0f; text-align: center; }
+    #home h2 { font-size: 2.5rem; margin-bottom: 10px; }
+    #home p { font-size: 1.2rem; color: #bbb; }
+
+    #about, #contact { background: #121212; }
+    #portfolio, #publications { background: #181818; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
     }
 
     .card {
-      background: white;
+      background: #222;
       padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-      margin-bottom: 20px;
-      transition: transform 0.3s;
-    }
-
-    .dark-mode .card {
-      background: #1e293b;
-      color: white;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 0 10px var(--accent);
     }
 
-    .info {
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-
-    .contact {
+    .contact-box {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: auto;
       text-align: center;
-      padding: 40px 20px;
-      background: #f1f5f9;
     }
 
-    .dark-mode .contact {
-      background: #1e293b;
-    }
-
-    .contact a {
+    .resume-btn {
       display: inline-block;
-      color: var(--main-color);
-      margin: 10px;
-      font-weight: 600;
+      background: var(--accent);
+      color: black;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: bold;
+      margin-top: 30px;
+      transition: transform 0.2s ease;
       text-decoration: none;
     }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: var(--main-color);
-      color: white;
+    .resume-btn:hover {
+      transform: scale(1.05);
+      background: var(--hover);
     }
 
-    .toggle-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--main-color);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      font-size: 1.5rem;
-      cursor: pointer;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    footer {
+      background: #000;
+      color: #888;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <button class="toggle-btn" onclick="toggleMode()">🌙</button>
-
-  <header>
+  <!-- Splash Intro -->
+  <div id="loader">
     <h1>Sabit Musaddique</h1>
-    <p>Medical Student | Future Doctor</p>
-  </header>
-
-  <div class="container">
-    <section>
-      <h2>About Me</h2>
-      <div class="card info">
-        I'm a passionate medical student currently studying MBBS at Delta Medical College in Dhaka, Bangladesh.
-        I completed my HSC from Birshreshtha Munshi Abdur Rouf Public College and SSC from Ideal School and College, Motijheel.
-      </div>
-    </section>
-
-    <section>
-      <h2>Education</h2>
-      <div class="card">
-        <strong>MBBS (Ongoing)</strong><br>
-        Delta Medical College
-      </div>
-      <div class="card">
-        <strong>HSC</strong><br>
-        Birshreshtha Munshi Abdur Rouf Public College
-      </div>
-      <div class="card">
-        <strong>SSC</strong><br>
-        Ideal School and College, Motijheel
-      </div>
-    </section>
-
-    <section>
-      <h2>Contact</h2>
-      <div class="card">
-        📞 <a href="tel:+8801766862660">01766862660</a><br>
-        📧 <a href="mailto:sabitmq@gmail.com">sabitmq@gmail.com</a>
-      </div>
-    </section>
+    <p>Future Doctor. Lifelong Learner.</p>
   </div>
 
-  <div class="contact">
-    <p>Let’s connect and talk about medical science, research, or collaboration!</p>
-  </div>
+  <!-- Navbar -->
+  <nav>
+    <h1>Sabit M.</h1>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Sections -->
+  <section id="home">
+    <h2>Future Doctor. Lifelong Learner.</h2>
+    <p>Welcome to my personal portfolio</p>
+    <a class="resume-btn" href="resume.pdf" target="_blank">📄 View My Resume</a>
+  </section>
+
+<section id="about">
+  <h2>About Me</h2>
+  <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-top:20px;">
+    <img src="sabit.jpg" alt="Sabit" style="width:180px;border-radius:12px;">
+    <p style="max-width: 700px;">
+      I am Sabit Musaddique, a dedicated medical student currently studying MBBS at Delta Medical College, Dhaka.
+      I passed HSC from Birshreshtha Munshi Abdur Rouf Public College and SSC from Ideal School and College, Motijheel.
+      My mission is to become a doctor who not only treats but also teaches and inspires.
+    </p>
+  </div> </section>
+
+  <section id="portfolio">
+    <h2>Portfolio</h2>
+    <div class="grid">
+      <div class="card">Coming Soon</div>
+      <div class="card">Coming Soon</div>
+      <div class="card">Coming Soon</div>
+    </div>
+  </section>
+
+  <section id="publications">
+    <h2>Publications / Research</h2>
+    <div class="grid">
+      <div class="card">No publications yet</div>
+      <div class="card">Add case studies or papers here</div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="contact-box">
+      <p>📞 <a href="tel:+8801766862660">01766862660</a></p>
+      <p>📧 <a href="mailto:sabitmq@gmail.com">sabitmq@gmail.com</a></p>
+      <p>📍 Dhaka, Bangladesh</p>
+    </div>
+  </section>
 
   <footer>
-    &copy; 2025 Sabit Musaddique | All rights reserved
+    &copy; 2025 Sabit Musaddique. All rights reserved.
   </footer>
 
-  <script>
-    function toggleMode() {
-      document.body.classList.toggle('dark-mode');
-    }
-  </script>
 </body>
 </html>
